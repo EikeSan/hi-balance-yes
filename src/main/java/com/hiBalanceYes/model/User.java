@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "user_application")
 public class User {
 
     @Id
@@ -26,10 +26,17 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Role> roles;
 
-    public User(String username, String password, List<Role> roles){
+    private boolean active;
+
+    public User(){
+
+    }
+
+    public User(String username, String password, List<Role> roles, boolean active){
         this.username = username;
         this.password = password;
         this.roles = roles;
+        this.active = active;
     }
     public Long getId() {
         return id;
@@ -61,5 +68,13 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
