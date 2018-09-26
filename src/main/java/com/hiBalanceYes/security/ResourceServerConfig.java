@@ -18,9 +18,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(jsonFilter, ChannelProcessingFilter.class)
-                .csrf().and().httpBasic().disable()
+                .csrf().disable().httpBasic().disable()
                 .authorizeRequests()
                 .antMatchers(NO_AUTH_URL).permitAll()
-                .antMatchers("/private/**").authenticated();
+                .anyRequest().authenticated();
     }
 }

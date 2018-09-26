@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import static  com.hiBalanceYes.security.SecurityConstants.NO_AUTH_URL;
 
 @Configuration
 @EnableWebSecurity
@@ -29,10 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/oauth/token").permitAll()
+                .antMatchers(NO_AUTH_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic().and()
+                .httpBasic().disable()
                 .csrf().disable();
     }
 
