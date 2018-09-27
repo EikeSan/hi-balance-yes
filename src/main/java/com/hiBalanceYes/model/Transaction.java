@@ -1,10 +1,15 @@
 package com.hiBalanceYes.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
 public class Transaction {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
+
     private Double value;
     private Timestamp date;
     private String type;
@@ -49,4 +54,5 @@ public class Transaction {
     public void setCategory(String category) {
         this.category = category;
     }
+
 }

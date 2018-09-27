@@ -1,14 +1,27 @@
 package com.hiBalanceYes.model;
 
-import java.sql.Timestamp;
+import javax.persistence.*;
+import java.util.Date;
 
+
+@Entity
 public class Balance {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
+
     private String type;
     private Double value;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Account account;
-    private Timestamp startDate;
-    private Timestamp endDate;
+
+    private Date startDate;
+    private Date endDate;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Transaction transaction;
 
     public Long getId() {
         return id;
@@ -42,19 +55,27 @@ public class Balance {
         this.account = account;
     }
 
-    public Timestamp getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Timestamp startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Timestamp getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Timestamp endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
     }
 }
