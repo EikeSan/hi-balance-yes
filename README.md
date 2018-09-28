@@ -31,7 +31,7 @@
 ```
 
 ### User Account
-- GET /users/accounts
+- POST /users/accounts
 ```json
 {
 	"name": "wallet",
@@ -40,6 +40,16 @@
 }
 ```
 
+### User Card
+- POST /users/cards
+```json
+    {
+    	"name": "NuBank",
+    	"account":{
+    	  "id": 1
+    	}
+    }
+```
 ### User Balance
 
 - GET /users/balances
