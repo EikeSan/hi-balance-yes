@@ -31,7 +31,7 @@
 ```
 
 ### User Account
-
+- GET /users/accounts
 ```json
 {
 	"name": "wallet",
