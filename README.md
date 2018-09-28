@@ -29,6 +29,17 @@
     "active": true
 }
 ```
+
+### User Account
+
+```json
+{
+	"name": "wallet",
+	"type": "wallet",
+	"bank": "citibank"
+}
+```
+
 ### User Balance
 
 - GET /users/balances
