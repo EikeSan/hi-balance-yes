@@ -1,5 +1,6 @@
 package com.hiBalanceYes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user_application")
+
 public class User {
 
     @Id
@@ -23,6 +25,7 @@ public class User {
 
     @NotNull
     @Size(min = 6)
+    @JsonIgnore
     private String password;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

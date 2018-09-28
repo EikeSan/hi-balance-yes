@@ -1,5 +1,8 @@
 package com.hiBalanceYes.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -22,6 +25,11 @@ public class Balance {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Transaction transaction;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
     public Long getId() {
         return id;
@@ -77,5 +85,13 @@ public class Balance {
 
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
