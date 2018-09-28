@@ -29,3 +29,18 @@
     "active": true
 }
 ```
+### User Balance
+
+- GET /users/balances
+- POST /users/balances/fixedIncome
+```json
+{
+  "value": 1000.0,
+  "transaction": {
+    "category" : "salary"
+  },
+  "account" : {
+    "id" : 1
+  }
+}
+```

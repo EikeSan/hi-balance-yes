@@ -1,8 +1,10 @@
 package com.hiBalanceYes.controller;
 
+import com.hiBalanceYes.model.Account;
 import com.hiBalanceYes.model.Balance;
 import com.hiBalanceYes.model.Transaction;
 import com.hiBalanceYes.model.User;
+import com.hiBalanceYes.repository.AccountRepository;
 import com.hiBalanceYes.repository.BalanceRepository;
 import com.hiBalanceYes.repository.TransactionRepository;
 import com.hiBalanceYes.repository.UserRepository;
@@ -24,11 +26,13 @@ public class BalanceController {
     private UserRepository userRepository;
     private TransactionRepository transactionRepository;
     private BalanceRepository balanceRepository;
+    private AccountRepository accountRepository;
 
-    public BalanceController(UserRepository userRepository, TransactionRepository transactionRepository, BalanceRepository balanceRepository) {
+    public BalanceController(UserRepository userRepository, TransactionRepository transactionRepository, BalanceRepository balanceRepository, AccountRepository accountRepository) {
         this.userRepository = userRepository;
         this.transactionRepository = transactionRepository;
         this.balanceRepository = balanceRepository;
+        this.accountRepository = accountRepository;
     }
 
     @GetMapping("")
@@ -47,6 +51,7 @@ public class BalanceController {
         Optional<User> userOptional = userRepository.findByUsername(auth.getName());
         List<Balance> balances = new ArrayList<>();
         Transaction transaction = new Transaction();
+        Optional <Account> account;
 
         balance.setType("fixedIncome");
 
@@ -64,11 +69,17 @@ public class BalanceController {
         transaction.setCategory(balance.getTransaction().getCategory());
         transaction.setValue(balance.getValue());
 
+        account = accountRepository.findById(balance.getAccount().getId());
+        List<Transaction> accountListTransactions = account.get().getTransactions();
+        accountListTransactions.add(transaction);
+        account.get().setTransactions(accountListTransactions);
+
+        balance.setAccount(account.get());
         balance.setTransaction(transactionRepository.save(transaction));
+        balance.setUser(userOptional.get());
 
         userOptional.get().setBalances(balances);
         User user = userOptional.get();
-
         return new ResponseEntity<>(userRepository.save(user),HttpStatus.CREATED);
     }
 }
